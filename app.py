@@ -2,7 +2,6 @@ import streamlit as st
 import pickle
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 pipe=pickle.load(open('pipe.pkl','rb'))
 
@@ -126,20 +125,20 @@ if st.button('Predict Score'):
             'last_five': [last_five] * len(teams)  # Same last five runs for all teams
         }) 
 
-        st.table(input_df)
+        # st.table(input_df)
 
         result = pipe.predict(input_df)
 
         # Create a bar chart of predicted scores for all teams except the selected bowling team
-        teams_except_bowling = [team for team in teams if team != bowling_team]
-        predicted_scores_except_bowling = [int(score) for score in result if score != result[teams.index(bowling_team)]]
+        # teams_except_bowling = [team for team in teams if team != bowling_team]
+        # predicted_scores_except_bowling = [int(score) for score in result if score != result[teams.index(bowling_team)]]
 
-        fig, ax = plt.subplots()
-        ax.bar(teams_except_bowling, predicted_scores_except_bowling)
-        ax.set_xlabel('Batting Teams')
-        ax.set_ylabel('Predicted Scores')
-        ax.set_title('Predicted Scores vs. Bowling Team')
-        st.pyplot(fig)
+        # fig, ax = plt.subplots()
+        # ax.bar(teams_except_bowling, predicted_scores_except_bowling)
+        # ax.set_xlabel('Batting Teams')
+        # ax.set_ylabel('Predicted Scores')
+        # ax.set_title('Predicted Scores vs. Bowling Team')
+        # st.pyplot(fig)
 
         st.header("Predicted Score: " + str(int(result[teams.index(bowling_team)])))
 
