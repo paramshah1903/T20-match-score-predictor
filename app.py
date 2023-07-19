@@ -81,33 +81,6 @@ with col5:
 
 last_five=st.number_input('Runs scored in last 5 overs')
 
-# if st.button('Predict Score'):
-#     balls_left = 120 - overs_done * 6
-#     wickets_left = 10 - wickets
-#     crr = current_score / overs_done
-
-#     # Perform checks
-#     if wickets_left < 0:
-#         st.error("Wickets cannot be greater than 10.")
-#     elif last_five > current_score:
-#         st.error("Last five runs cannot be greater than the current score.")
-#     else:
-#         input_df = pd.DataFrame({
-#             'batting_team': [batting_team],
-#             'bowling_team': [bowling_team],
-#             'city': [city],
-#             'current_score': [current_score],
-#             'balls_left': [balls_left],
-#             'wickets_left': [wickets_left],
-#             'crr': [crr],
-#             'last_five': [last_five]
-#         }) 
-
-#         st.table(input_df)
-
-#         result = pipe.predict(input_df)
-
-#         st.header("Predicted Score: " + str(int(result[0])))
 if st.button('Predict Score'):
     balls_left = 120 - overs_done * 6
     wickets_left = 10 - wickets
@@ -120,31 +93,20 @@ if st.button('Predict Score'):
         st.error("Last five runs cannot be greater than the current score.")
     else:
         input_df = pd.DataFrame({
-            'batting_team': teams,  # List of all batting teams
-            'bowling_team': [bowling_team] * len(teams),  # Selected bowling team for comparison
-            'city': [city] * len(teams),  # Same city for all teams
-            'current_score': [current_score] * len(teams),  # Same current score for all teams
-            'balls_left': [balls_left] * len(teams),  # Same balls left for all teams
-            'wickets_left': [wickets_left] * len(teams),  # Same wickets left for all teams
-            'crr': [crr] * len(teams),  # Same crr for all teams
-            'last_five': [last_five] * len(teams)  # Same last five runs for all teams
+            'batting_team': [batting_team],
+            'bowling_team': [bowling_team],
+            'city': [city],
+            'current_score': [current_score],
+            'balls_left': [balls_left],
+            'wickets_left': [wickets_left],
+            'crr': [crr],
+            'last_five': [last_five]
         }) 
 
-        # st.table(input_df)
+        st.table(input_df)
 
         result = pipe.predict(input_df)
 
-        # Create a bar chart of predicted scores for all teams except the selected bowling team
-        # teams_except_bowling = [team for team in teams if team != bowling_team]
-        # predicted_scores_except_bowling = [int(score) for score in result if score != result[teams.index(bowling_team)]]
-
-        # fig, ax = plt.subplots()
-        # ax.bar(teams_except_bowling, predicted_scores_except_bowling)
-        # ax.set_xlabel('Batting Teams')
-        # ax.set_ylabel('Predicted Scores')
-        # ax.set_title('Predicted Scores vs. Bowling Team')
-        # st.pyplot(fig)
-
-        st.header("Predicted Score: " + str(int(result[teams.index(bowling_team)])))
+        st.header("Predicted Score: " + str(int(result[0])))
 
    
