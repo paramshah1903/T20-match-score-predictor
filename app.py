@@ -3,7 +3,13 @@ import pickle
 import pandas as pd
 import numpy as np
 
-pipe=pickle.load(open('pipe.pkl','rb'))
+# pipe=pickle.load(open('pipe.pkl','rb'))
+
+import os
+
+file_path = os.path.join(os.path.dirname(__file__), 'pipe.pkl')
+pipe = pickle.load(open(file_path, 'rb'))
+
 
 teams = ['Australia',
  'India',
